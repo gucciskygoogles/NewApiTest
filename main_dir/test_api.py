@@ -1,6 +1,6 @@
 import pytest
 import requests
-
+from json import JSONDecoder
 
 class TestWeatherAPITest:
 
@@ -11,34 +11,53 @@ class TestWeatherAPITest:
 
     @pytest.mark.get
     def test_get_json(self, response_first):
-        assert response_first.headers['Content-type'] == 'application/json; charset=utf-8'
+        try:
+            assert response_first.headers['Content-type'] == 'application/json; charset=utf-8'
+        except JSONDecoder:
+            print('Not JSON format')
 
     @pytest.mark.get
     def test_city_correct_location(self, response_first):
-        response_body = response_first.json()
-        assert len(response_body['coord']) == 2
+        try:
+            response_body = response_first.json()
+            assert 'coord' in response_body
+            assert len(response_body['coord']) == 2
+        except JSONDecoder:
+            print('Not JSON format')
 
     @pytest.mark.get
     def test_correct_city_name(self, response_first):
-        response_body = response_first.json()
-        assert response_body['name'] == 'London'
-
+        try:
+            response_body = response_first.json()
+            assert 'name' in response_body
+            assert response_body['name'] == 'London'
+        except JSONDecoder:
+            print('Not JSON format')
 
 class TestReqresInAPItest:
 
     @pytest.mark.post
     def test_create_user(self, post_method):
-        response = requests.post("https://reqres.in/api/users", data=post_method)
-        assert response.status_code == 201
+        try:
+            response = requests.post("https://reqres.in/api/users", data=post_method)
+            assert response.status_code == 201
+        except JSONDecoder:
+            print('Not JSON format')
 
     @pytest.mark.update
     def test_update_user(self, put_method):
-        response = requests.put("https://reqres.in/api/users/2", data=put_method)
-        assert response.status_code == 200
+        try:
+            response = requests.put("https://reqres.in/api/users/2", data=put_method)
+            assert response.status_code == 200
+        except JSONDecoder:
+            print('Not JSON format')
 
     @pytest.mark.parametrize('users', [i for i in range(1, 11)])
     def test_get_name_of_user(self, users):
-        response = requests.get(f"https://reqres.in/api/users/{users}")
-        response_body = response.json()
-        print(response_body['data']['first_name'])
-        assert response.status_code == 200
+        try:
+            response = requests.get(f"https://reqres.in/api/users/{users}")
+            response_body = response.json()
+            print(response_body['data']['first_name'])
+            assert response.status_code == 200
+        except JSONDecoder:
+            print('Not JSON format')

@@ -22,3 +22,4 @@ def put_method():
 def response_first():
     response_first = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q=London&appid={config.APIkey}')
     return response_first
+
