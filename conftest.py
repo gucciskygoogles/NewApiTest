@@ -1,6 +1,6 @@
 import pytest
 import requests
-from NewApiTest.src import config
+from src import config
 
 
 @pytest.fixture()
