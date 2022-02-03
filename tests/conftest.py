@@ -1,6 +1,7 @@
 import pytest
 import requests
-import config
+from NewApiTest.src import config
+
 
 @pytest.fixture()
 def post_method():
