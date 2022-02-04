@@ -7,7 +7,6 @@ import allure
 @allure.epic('Reqres Cases')
 class TestReqresInAPItest:
 
-
     @pytest.mark.post
     def test_create_user(self, post_method):
         try:
@@ -16,7 +15,6 @@ class TestReqresInAPItest:
         except JSONDecoder:
             print('Not JSON format')
 
-
     @pytest.mark.update
     def test_update_user(self, put_method):
         try:
@@ -24,7 +22,6 @@ class TestReqresInAPItest:
             assert response.status_code == 200
         except JSONDecoder:
             print('Not JSON format')
-
 
     @pytest.mark.parametrize('users', [i for i in range(1, 11)])
     def test_get_name_of_user(self, users):
@@ -36,7 +33,6 @@ class TestReqresInAPItest:
             assert response.status_code == 200
         except JSONDecoder:
             print('Not JSON format')
-
 
     @pytest.mark.xfail
     @pytest.mark.post

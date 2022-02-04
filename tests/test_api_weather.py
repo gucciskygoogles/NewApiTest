@@ -1,12 +1,10 @@
 import pytest
-import requests
 from json import JSONDecoder
 import allure
 
 
 @allure.epic('Weather Cases')
 class TestWeatherAPITest:
-
 
     @allure.description('Get correct status')
     @pytest.mark.get
@@ -15,7 +13,6 @@ class TestWeatherAPITest:
         with allure.step('Получение статуса кода'):
             assert response_first.status_code == 201
 
-
     @pytest.mark.get
     def test_get_json(self, response_first):
         try:
@@ -23,7 +20,6 @@ class TestWeatherAPITest:
                 assert response_first.headers['Content-type'] == 'application/json; charset=utf-8'
         except JSONDecoder:
             print('Not JSON format')
-
 
     @pytest.mark.get
     def test_city_correct_location(self, response_first):
@@ -36,7 +32,6 @@ class TestWeatherAPITest:
         except JSONDecoder:
             print('Not JSON format')
 
-
     @pytest.mark.get
     def test_correct_city_name(self, response_first):
         try:
@@ -45,8 +40,3 @@ class TestWeatherAPITest:
             assert response_body['name'] == 'London'
         except JSONDecoder:
             print('Not JSON format')
-
-
-
-
-
